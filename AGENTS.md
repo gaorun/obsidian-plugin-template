@@ -31,4 +31,4 @@ pnpm format          # format check all source files (root)
 
 ## Release
 
-- **CLI release**: push a `cli-v*` tag (e.g. `cli-v1.0.1`) to trigger the Release CLI workflow. It builds and publishes `@gaorun/create-obsidian-plugin` to GitHub Packages.
+- **CLI release**: push a `cli-v*` tag (e.g. `cli-v1.0.1`) to trigger the Release CLI workflow. The version number after `cli-v` is automatically applied to the package before publishing to GitHub Packages.

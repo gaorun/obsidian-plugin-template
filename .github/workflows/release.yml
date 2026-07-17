@@ -26,8 +26,20 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           scope: '@gaorun'
 
+      - name: Extract version from tag
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/cli-v}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+        id: version
+
       - run: pnpm install --frozen-lockfile
+
+      - name: Bump CLI package version
+        run: |
+          pnpm --filter @gaorun/create-obsidian-plugin version ${{ steps.version.outputs.version }} --no-git-checks
+
       - run: pnpm --filter @gaorun/create-obsidian-plugin run build
+
       - run: pnpm --filter @gaorun/create-obsidian-plugin publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_PAT }}
