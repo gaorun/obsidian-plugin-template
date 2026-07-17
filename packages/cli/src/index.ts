@@ -16,8 +16,8 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Template directory: packages/template/ relative to packages/cli/dist/
-const templateDir = resolve(__dirname, '..', '..', 'template');
+// Template directory: bundled inside the CLI package at build time
+const templateDir = resolve(__dirname, '..', 'template');
 
 type Answers = {
 	pluginName: string;

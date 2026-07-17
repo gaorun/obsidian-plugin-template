@@ -8,17 +8,23 @@
 		"create-obsidian-plugin": "./dist/index.js"
 	},
 	"files": [
-		"dist"
+		"dist",
+		"template"
 	],
 	"publishConfig": {
 		"access": "public",
 		"registry": "https://npm.pkg.github.com"
 	},
 	"scripts": {
-		"build": "tsc",
+		"build": "tsc && rm -rf template && cp -r ../template template && rm -rf template/node_modules template/dist template/pnpm-lock.yaml",
 		"prepublishOnly": "pnpm run build"
 	},
-	"keywords": ["obsidian", "plugin", "scaffold", "create"],
+	"keywords": [
+		"obsidian",
+		"plugin",
+		"scaffold",
+		"create"
+	],
 	"license": "0-BSD",
 	"devDependencies": {
 		"@types/node": "^22.15.17",

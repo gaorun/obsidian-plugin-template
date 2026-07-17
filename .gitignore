@@ -12,6 +12,9 @@ dist
 # Exclude sourcemaps
 *.map
 
+# CLI build artifact (copied from packages/template/)
+packages/cli/template
+
 # obsidian
 data.json
 
