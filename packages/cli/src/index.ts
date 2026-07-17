@@ -177,8 +177,7 @@ async function main() {
 
 	// Validate template directory
 	if (!existsSync(templateDir)) {
-		console.error(`\n❌ Template directory not found: ${templateDir}`);
-		console.error('   Make sure the CLI is running from the monorepo.\n');
+		console.error(`\n❌ Template directory not found: ${templateDir}\n`);
 		process.exit(1);
 	}
 
@@ -201,10 +200,20 @@ async function main() {
 		console.log(`  ✅ ${relativePath}`);
 	}
 
+	// Ensure .npmrc with public registry is present
+	writeFileSync(
+		resolve(targetDir, '.npmrc'),
+		'tag-version-prefix=""\nregistry=https://registry.npmjs.org/\n',
+		'utf8',
+	);
+
 	// Run pnpm install in the target directory
 	console.log('\n  📦 Installing dependencies...');
 	try {
-		execSync('pnpm install', { cwd: targetDir, stdio: 'inherit' });
+		execSync('pnpm install --registry https://registry.npmjs.org/', {
+			cwd: targetDir,
+			stdio: 'inherit',
+		});
 	} catch {
 		console.log('  ⚠️  pnpm install failed. Run it manually after setup.');
 	}
