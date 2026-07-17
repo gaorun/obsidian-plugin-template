@@ -46,18 +46,21 @@ if (existsSync('styles.css')) {
 }
 console.log(`[deploy] Copied manifest.json and styles.css`);
 
-// Reload the plugin in Obsidian (hot reload)
+// Ensure the plugin is enabled, then hot-reload it
+try {
+	execSync(`obsidian plugin:enable ${pluginId}`, { stdio: 'pipe' });
+} catch {
+	console.log(
+		`[deploy] Could not auto-enable plugin. Enable it manually in Obsidian settings.`,
+	);
+	process.exit(0);
+}
+
 try {
 	execSync(`obsidian plugin:reload ${pluginId}`, { stdio: 'pipe' });
 	console.log(`[deploy] Reloaded plugin: ${pluginId}`);
 } catch {
-	// If reload fails (e.g. first time), try enable
-	try {
-		execSync(`obsidian plugin:enable ${pluginId}`, { stdio: 'pipe' });
-		console.log(`[deploy] Enabled plugin: ${pluginId}`);
-	} catch {
-		console.log(
-			`[deploy] Could not auto-enable plugin. Enable it manually in Obsidian settings.`,
-		);
-	}
+	console.log(
+		`[deploy] Could not auto-reload plugin. Reload Obsidian manually (Cmd+R).`,
+	);
 }
