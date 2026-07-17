@@ -1,0 +1,27 @@
+{
+	"name": "@gaorun/create-obsidian-plugin",
+	"version": "1.0.0",
+	"description": "Scaffold an Obsidian plugin from a template",
+	"packageManager": "pnpm@11.13.1",
+	"type": "module",
+	"bin": {
+		"create-obsidian-plugin": "./dist/index.js"
+	},
+	"files": [
+		"dist"
+	],
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://npm.pkg.github.com"
+	},
+	"scripts": {
+		"build": "tsc",
+		"prepublishOnly": "pnpm run build"
+	},
+	"keywords": ["obsidian", "plugin", "scaffold", "create"],
+	"license": "0-BSD",
+	"devDependencies": {
+		"@types/node": "^22.15.17",
+		"typescript": "^5.8.3"
+	}
+}

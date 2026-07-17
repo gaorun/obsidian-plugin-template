@@ -8,6 +8,21 @@ importers:
 
   .:
     devDependencies:
+      prettier:
+        specifier: ^3.5.0
+        version: 3.9.5
+
+  packages/cli:
+    devDependencies:
+      '@types/node':
+        specifier: ^22.15.17
+        version: 22.20.1
+      typescript:
+        specifier: ^5.8.3
+        version: 5.9.3
+
+  packages/template:
+    devDependencies:
       '@eslint/js':
         specifier: ^9.39.4
         version: 9.39.5
@@ -23,9 +38,6 @@ importers:
       globals:
         specifier: ^17.6.0
         version: 17.7.0
-      jiti:
-        specifier: ^2.6.1
-        version: 2.7.0
       obsidian:
         specifier: latest
         version: 1.13.1(@codemirror/state@6.5.0)(@codemirror/view@6.38.6)
@@ -1211,6 +1223,11 @@ packages:
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
+
+  prettier@3.9.5:
+    resolution: {integrity: sha512-/FVl766LpUfB5vXgCYOYa0MeV/441Ia99AeICQIQFTY/Nw0roZwULcXpku5i1/m5kt/baz+s4Zogspd839HSMg==}
+    engines: {node: '>=14'}
+    hasBin: true
 
   prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
@@ -2699,7 +2716,8 @@ snapshots:
       has-symbols: 1.1.0
       set-function-name: 2.0.2
 
-  jiti@2.7.0: {}
+  jiti@2.7.0:
+    optional: true
 
   js-tokens@4.0.0: {}
 
@@ -2937,6 +2955,8 @@ snapshots:
       source-map-js: 1.2.1
 
   prelude-ls@1.2.1: {}
+
+  prettier@3.9.5: {}
 
   prop-types@15.8.1:
     dependencies:

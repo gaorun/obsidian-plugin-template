@@ -37,8 +37,8 @@ export default defineConfig(({ mode }) => ({
 		},
 		minify: mode === 'production' ? 'oxc' : false,
 		sourcemap: mode === 'production' ? false : 'inline',
-		emptyOutDir: false,
-		outDir: '.',
+		emptyOutDir: true,
+		outDir: 'dist',
 		reportCompressedSize: false,
 	},
 }));

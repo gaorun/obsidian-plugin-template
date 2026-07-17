@@ -1,29 +1,18 @@
 {
-	"name": "obsidian-sample-plugin",
+	"name": "obsidian-plugin-template",
 	"version": "1.0.0",
+	"private": true,
 	"packageManager": "pnpm@11.13.1",
-	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
-	"main": "main.js",
+	"description": "Monorepo for Obsidian plugin template and CLI scaffolding tool",
 	"type": "module",
 	"scripts": {
-		"dev": "vite build --watch --mode development",
-		"build": "tsc -noEmit -skipLibCheck && vite build",
-		"preinstall": "npx -y only-allow pnpm",
-		"version": "node version-bump.mjs && git add manifest.json versions.json",
-		"lint": "eslint ."
+		"build": "pnpm -r build",
+		"lint": "pnpm -r lint",
+		"format": "prettier --check \"**/*.{ts,mts,mjs,json,md}\""
 	},
 	"keywords": [],
 	"license": "0-BSD",
 	"devDependencies": {
-		"@eslint/js": "^9.39.4",
-		"@types/node": "^22.15.17",
-		"eslint": "^9.39.4",
-		"eslint-plugin-obsidianmd": "^0.4.0",
-		"globals": "^17.6.0",
-		"jiti": "^2.6.1",
-		"obsidian": "latest",
-		"typescript": "^5.8.3",
-		"typescript-eslint": "^8.59.1",
-		"vite": "^8.1.5"
+		"prettier": "^3.5.0"
 	}
 }

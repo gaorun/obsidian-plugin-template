@@ -11,7 +11,6 @@ export default defineConfig(
 		'versions.json',
 		'main.js',
 		'package.json',
-		'pnpm-lock.yaml',
 		'tsconfig.json',
 	]),
 	{

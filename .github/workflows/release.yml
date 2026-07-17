@@ -1,17 +1,16 @@
-name: Release Obsidian plugin
+name: Release CLI to GitHub Packages
 
 on:
   push:
     tags:
-      - '*'
+      - 'cli-v*'
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      id-token: write
-      attestations: write
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v6
 
@@ -24,31 +23,11 @@ jobs:
         with:
           node-version: 24
           cache: 'pnpm'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@gaorun'
 
-      - name: Build plugin
-        run: |
-          pnpm install --frozen-lockfile
-          pnpm run build
-
-      - name: Check for optional styles
-        id: styles
-        run: |
-          [ -f styles.css ] && echo "exists=true" >> "$GITHUB_OUTPUT" || echo "exists=false" >> "$GITHUB_OUTPUT"
-
-      - name: Attest build provenance
-        uses: actions/attest@v4
-        with:
-          subject-path: |
-            main.js
-            ${{ steps.styles.outputs.exists == 'true' && 'styles.css' || '' }}
-
-      - name: Create release
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @gaorun/create-obsidian-plugin run build
+      - run: pnpm --filter @gaorun/create-obsidian-plugin publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          tag="${GITHUB_REF#refs/tags/}"
-
-          gh release create "$tag" \
-            --title="$tag" \
-            --draft \
-            main.js manifest.json ${{ steps.styles.outputs.exists == 'true' && 'styles.css' || '' }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

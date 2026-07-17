@@ -1,18 +1,18 @@
 {
 	"compilerOptions": {
 		"module": "ESNext",
-		"target": "ES2021",
+		"target": "ES2022",
 		"strict": true,
-		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true,
-		"noUncheckedIndexedAccess": true,
 		"moduleResolution": "bundler",
 		"isolatedModules": true,
-		"noEmit": true,
+		"noEmit": false,
+		"outDir": "dist",
+		"declaration": true,
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
 		"allowSyntheticDefaultImports": true,
-		"lib": ["ES2021", "DOM"],
+		"lib": ["ES2022"],
+		"rootDir": "src"
 	},
-	"include": ["src/**/*.ts"],
+	"include": ["src/**/*.ts"]
 }
