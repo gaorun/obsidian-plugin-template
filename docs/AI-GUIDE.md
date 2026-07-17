@@ -30,23 +30,20 @@ The CLI creates a fully functional Obsidian plugin project with:
 ## Step 1: Scaffold a New Plugin
 
 > **Registry setup**: This package is published to GitHub Packages, not the public npm registry.
-> You need to configure npm/pnpm to resolve `@gaorun/*` packages from GitHub Packages:
+> Add the following to `~/.npmrc` so npm/pnpm can resolve `@gaorun/*` packages:
 >
-> ```bash
-> echo "@gaorun:registry=https://npm.pkg.github.com/" >> ~/.npmrc
+> ```ini
+> @gaorun:registry=https://npm.pkg.github.com/
+> //npm.pkg.github.com/:_authToken=ghp_xxxxxxxxxxxx
 > ```
 >
-> If you don't have a GitHub token with `read:packages` scope, create one at
-> https://github.com/settings/tokens and add it to `~/.npmrc`:
->
-> ```bash
-> echo "//npm.pkg.github.com/:_authToken=ghp_xxxxxxxxxxxx" >> ~/.npmrc
-> ```
+> Replace `ghp_xxxxxxxxxxxx` with a GitHub token that has `read:packages` scope
+> (create one at https://github.com/settings/tokens).
 
-Run the CLI using `npx` (no install needed):
+Run the CLI using `npx`, specifying the GitHub Packages registry:
 
 ```bash
-npx @gaorun/create-obsidian-plugin@latest
+npx --registry https://npm.pkg.github.com @gaorun/create-obsidian-plugin@latest
 ```
 
 The CLI will ask:
@@ -63,7 +60,7 @@ The project is created in a new directory named after the plugin ID under your c
 ### CLI Arguments (skip interactive prompts)
 
 ```bash
-npx @gaorun/create-obsidian-plugin@latest \
+npx --registry https://npm.pkg.github.com @gaorun/create-obsidian-plugin@latest \
   --name "My Todoist Sync" \
   --description "Syncs tasks between Obsidian and Todoist" \
   --author "Jane Doe" \
