@@ -6,9 +6,9 @@
 	"main": "dist/main.js",
 	"type": "module",
 	"scripts": {
-		"dev": "node scripts/link-vault.mjs && vite build --watch --mode development",
+		"dev": "vite build --watch --mode development",
 		"build": "tsc -noEmit -skipLibCheck && vite build",
-		"link": "node scripts/link-vault.mjs",
+		"deploy": "node scripts/deploy.mjs",
 		"clear": "node scripts/clear.mjs",
 		"version": "node version-bump.mjs && git add manifest.json versions.json",
 		"lint": "eslint ."

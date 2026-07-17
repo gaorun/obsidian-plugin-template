@@ -1,4 +1,6 @@
+import { execSync } from 'child_process';
 import { builtinModules } from 'node:module';
+import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
 const banner = `/*
@@ -41,4 +43,23 @@ export default defineConfig(({ mode }) => ({
 		outDir: 'dist',
 		reportCompressedSize: false,
 	},
+	plugins: [
+		{
+			name: 'deploy-to-vault',
+			closeBundle() {
+				if (mode === 'development') {
+					try {
+						const deployScript = resolve(
+							process.cwd(),
+							'scripts',
+							'deploy.mjs',
+						);
+						execSync(`node "${deployScript}"`, { stdio: 'inherit' });
+					} catch {
+						// deploy script handles its own errors
+					}
+				}
+			},
+		},
+	],
 }));

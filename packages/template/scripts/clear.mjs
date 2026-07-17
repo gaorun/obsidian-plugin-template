@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { execSync } from 'child_process';
-import { existsSync, readFileSync, rmSync, unlinkSync } from 'fs';
+import { existsSync, readFileSync, rmSync } from 'fs';
 import { resolve } from 'path';
 
 const manifest = JSON.parse(readFileSync('manifest.json', 'utf8'));
@@ -17,14 +17,12 @@ try {
 	vaultPath = '';
 }
 
-// Remove symlink
+// Remove plugin from vault
 if (vaultPath) {
-	const vaultPluginsDir = resolve(vaultPath, '.obsidian', 'plugins');
-	const symlinkName = `${pluginId}-dist`;
-	const symlinkTarget = resolve(vaultPluginsDir, symlinkName);
-	if (existsSync(symlinkTarget)) {
-		unlinkSync(symlinkTarget);
-		console.log(`[clear] Removed symlink: ${symlinkName}`);
+	const targetDir = resolve(vaultPath, '.obsidian', 'plugins', pluginId);
+	if (existsSync(targetDir)) {
+		rmSync(targetDir, { recursive: true, force: true });
+		console.log(`[clear] Removed plugin directory: ${pluginId}`);
 	}
 
 	// Disable plugin
@@ -36,7 +34,7 @@ if (vaultPath) {
 	}
 }
 
-// Remove dist
+// Remove local dist
 if (existsSync(distPath)) {
 	rmSync(distPath, { recursive: true, force: true });
 	console.log('[clear] Removed dist directory');
