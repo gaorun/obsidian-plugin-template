@@ -28,3 +28,7 @@ pnpm format          # format check all source files (root)
 - Each package is self-contained with its own `package.json`, `tsconfig.json`, and build config.
 - Workspace root `package.json` is `"private": true` and only holds shared devDependencies (e.g. prettier).
 - Use `@gaorun/` npm scope for packages published under GitHub Packages.
+
+## Release
+
+- **CLI release**: push a `cli-v*` tag (e.g. `cli-v1.0.1`) to trigger the Release CLI workflow. It builds and publishes `@gaorun/create-obsidian-plugin` to GitHub Packages.
