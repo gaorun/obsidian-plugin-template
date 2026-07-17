@@ -5,9 +5,15 @@ import { resolve } from 'path';
 
 const manifest = JSON.parse(readFileSync('manifest.json', 'utf8'));
 const pluginId = manifest.id;
-
-const vaultPath = process.env.OBSIDIAN_VAULT_PATH;
 const distPath = resolve(process.cwd(), 'dist');
+
+// Get vault path from Obsidian CLI
+let vaultPath;
+try {
+	vaultPath = execSync('obsidian vault', { encoding: 'utf8' }).trim();
+} catch {
+	vaultPath = '';
+}
 
 // Remove symlink
 if (vaultPath) {

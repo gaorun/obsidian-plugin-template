@@ -24,10 +24,7 @@ type Answers = {
 	pluginId: string;
 	description: string;
 	author: string;
-	authorUrl: string;
-	fundingUrl: string;
-	vaultPath: string;
-	targetDir: string;
+	authorEmail: string;
 };
 
 function ask(query: string, defaultValue = ''): Promise<string> {
@@ -63,6 +60,7 @@ function parseArgs(): Partial<Answers> {
 			case '-i':
 				result.pluginId = args[++i];
 				break;
+			// Note: plugin ID is always auto-generated from name. Use --id to override.
 			case '--description':
 			case '-d':
 				result.description = args[++i];
@@ -71,21 +69,9 @@ function parseArgs(): Partial<Answers> {
 			case '-a':
 				result.author = args[++i];
 				break;
-			case '--author-url':
-			case '-u':
-				result.authorUrl = args[++i];
-				break;
-			case '--funding-url':
-			case '-f':
-				result.fundingUrl = args[++i];
-				break;
-			case '--vault-path':
-			case '-v':
-				result.vaultPath = args[++i];
-				break;
-			case '--out-dir':
-			case '-o':
-				result.targetDir = args[++i];
+			case '--email':
+			case '-e':
+				result.authorEmail = args[++i];
 				break;
 			case '--help':
 			case '-h':
@@ -109,13 +95,10 @@ function printHelp(): void {
 
   Options:
     -n, --name <name>          Plugin name (default: My Plugin)
-    -i, --id <id>             Plugin ID (default: kebab-case of name)
+    -i, --id <id>             Plugin ID (auto: kebab-case of name)
     -d, --description <desc>  Plugin description
     -a, --author <author>     Author name (default: from git config)
-    -u, --author-url <url>    Author URL
-    -f, --funding-url <url>   Funding URL
-    -v, --vault-path <path>   Obsidian vault path
-    -o, --out-dir <path>      Output directory (default: ./<plugin-id>)
+    -e, --email <email>       Author email (default: from git config)
     -h, --help                Show this help message
   `);
 }
@@ -153,10 +136,7 @@ function replacePlaceholders(content: string, answers: Answers): string {
 		'{{PLUGIN_NAME}}': answers.pluginName,
 		'{{DESCRIPTION}}': answers.description,
 		'{{AUTHOR}}': answers.author,
-		'{{AUTHOR_URL}}': answers.authorUrl,
-		'{{FUNDING_URL}}': answers.fundingUrl,
-		'{{VAULT_PATH}}': answers.vaultPath,
-		'{{TARGET_DIR}}': answers.targetDir,
+		'{{AUTHOR_EMAIL}}': answers.authorEmail,
 	};
 	let result = content;
 	for (const [key, value] of Object.entries(map)) {
@@ -173,37 +153,26 @@ async function main() {
 	// Parse CLI arguments first
 	const cliArgs = parseArgs();
 
-	// Resolve defaults with dependency order
-	const resolvedName = cliArgs.pluginName ?? 'My Plugin';
-	const resolvedId = cliArgs.pluginId ?? toKebabCase(resolvedName);
-	const resolvedTarget =
-		cliArgs.targetDir ?? resolve(process.cwd(), resolvedId);
-
 	// Only ask for fields not provided via CLI args
 	const pluginName =
 		cliArgs.pluginName ?? (await ask('Plugin name', 'My Plugin'));
-	const pluginId =
-		cliArgs.pluginId ?? (await ask('Plugin ID', toKebabCase(pluginName)));
+	const pluginId = cliArgs.pluginId ?? toKebabCase(pluginName);
 	const description =
 		cliArgs.description ?? (await ask('Description', 'An Obsidian plugin'));
 	const author =
 		cliArgs.author ?? (await ask('Author', getGitConfig('user.name')));
-	const authorUrl = cliArgs.authorUrl ?? (await ask('Author URL'));
-	const fundingUrl = cliArgs.fundingUrl ?? (await ask('Funding URL'));
-	const vaultPath = cliArgs.vaultPath ?? (await ask('Obsidian vault path'));
-	const defaultTarget = resolve(process.cwd(), pluginId);
-	const targetDir =
-		cliArgs.targetDir ?? (await ask('Output directory', defaultTarget));
+	const authorEmail =
+		cliArgs.authorEmail ??
+		(await ask('Author email', getGitConfig('user.email')));
+
+	const targetDir = resolve(process.cwd(), pluginId);
 
 	const answers: Answers = {
 		pluginName,
 		pluginId,
 		description,
 		author,
-		authorUrl,
-		fundingUrl,
-		vaultPath,
-		targetDir,
+		authorEmail,
 	};
 
 	// Validate template directory
