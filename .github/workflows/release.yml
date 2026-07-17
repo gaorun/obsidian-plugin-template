@@ -28,6 +28,6 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @gaorun/create-obsidian-plugin run build
-      - run: pnpm --filter @gaorun/create-obsidian-plugin publish
+      - run: pnpm --filter @gaorun/create-obsidian-plugin publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
