@@ -52,10 +52,10 @@ npx --registry https://npm.pkg.github.com @gaorun/create-obsidian-plugin@latest
 >
 > ```bash
 > npx --registry https://npm.pkg.github.com @gaorun/create-obsidian-plugin@latest \
->   --name "我的同步助手" \
->   --description "在 Obsidian 和 Todoist 之间同步任务" \
->   --author "张三" \
->   --email "zhangsan@example.com"
+>   --name "My Todoist Sync" \
+>   --description "Syncs tasks between Obsidian and Todoist" \
+>   --author "Jane Doe" \
+>   --email "jane@example.com"
 > ```
 
 ---
