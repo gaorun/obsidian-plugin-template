@@ -19,7 +19,8 @@ Have a great idea for an Obsidian plugin but don't want to spend hours setting u
 
 - **Node.js** >= 22.13
 - **pnpm** >= 9
-- **Obsidian CLI** — `npm install -g obsidian` (required for auto-deploy and hot-reload)
+- **Obsidian CLI** — Bundled with the Obsidian desktop app (`/usr/local/bin/obsidian`).
+  Install [Obsidian](https://obsidian.md) and the CLI will be available automatically.
 
 ### Registry Setup
 

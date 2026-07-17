@@ -18,12 +18,12 @@ The CLI creates a fully functional Obsidian plugin project with:
 
 ## Prerequisites
 
-| Requirement  | Version  | Check command             |
-| ------------ | -------- | ------------------------- |
-| Node.js      | >= 22.13 | `node --version`          |
-| pnpm         | >= 9     | `pnpm --version`          |
-| Git          | any      | `git --version`           |
-| Obsidian CLI | latest   | `npm install -g obsidian` |
+| Requirement  | Version  | Check command                                                                                                   |
+| ------------ | -------- | --------------------------------------------------------------------------------------------------------------- |
+| Node.js      | >= 22.13 | `node --version`                                                                                                |
+| pnpm         | >= 9     | `pnpm --version`                                                                                                |
+| Git          | any      | `git --version`                                                                                                 |
+| Obsidian CLI | latest   | Bundled with [Obsidian desktop app](https://obsidian.md) — automatically available at `/usr/local/bin/obsidian` |
 
 ---
 

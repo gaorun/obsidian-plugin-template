@@ -6,10 +6,10 @@
 
 ## 包说明
 
-| 包 | 说明 |
-|---|---|
+| 包                                                  | 说明                                                  |
+| --------------------------------------------------- | ----------------------------------------------------- |
 | [`@gaorun/create-obsidian-plugin`](./packages/cli/) | 脚手架 CLI — 回答几个问题，得到一个能直接跑的插件项目 |
-| [`packages/template/`](./packages/template/) | 驱动 CLI 的模板（不需要直接使用） |
+| [`packages/template/`](./packages/template/)        | 驱动 CLI 的模板（不需要直接使用）                     |
 
 ---
 
@@ -19,7 +19,8 @@
 
 - **Node.js** >= 22.13
 - **pnpm** >= 9
-- **Obsidian CLI** — `npm install -g obsidian`（用于自动部署和热更新）
+- **Obsidian CLI** — Obsidian 桌面应用自带（`/usr/local/bin/obsidian`）。
+  安装 [Obsidian](https://obsidian.md) 后 CLI 即可用。
 
 ### 注册表配置
 
@@ -74,12 +75,12 @@ Vite 启动监听模式。每次保存源文件：
 
 ### 其他命令
 
-| 命令 | 作用 |
-|---|---|
-| `pnpm run build` | 生产构建（压缩、无 sourcemap）→ `dist/main.js` |
-| `pnpm run deploy` | 将当前 `dist/` 复制到 vault 插件目录 |
-| `pnpm run clear` | 从 vault 移除插件，删除本地 `dist/` |
-| `pnpm run lint` | ESLint 检查（含 Obsidian 专用规则） |
+| 命令               | 作用                                            |
+| ------------------ | ----------------------------------------------- |
+| `pnpm run build`   | 生产构建（压缩、无 sourcemap）→ `dist/main.js`  |
+| `pnpm run deploy`  | 将当前 `dist/` 复制到 vault 插件目录            |
+| `pnpm run clear`   | 从 vault 移除插件，删除本地 `dist/`             |
+| `pnpm run lint`    | ESLint 检查（含 Obsidian 专用规则）             |
 | `pnpm run version` | 同步版本号到 `manifest.json` 和 `versions.json` |
 
 ---
@@ -123,8 +124,8 @@ my-plugin/
 
 ## 环境要求
 
-| 工具 | 版本 |
-|---|---|
-| Node.js | >= 22.13 |
-| pnpm | >= 11.x |
+| 工具         | 版本                                |
+| ------------ | ----------------------------------- |
+| Node.js      | >= 22.13                            |
+| pnpm         | >= 11.x                             |
 | Obsidian CLI | latest（`npm install -g obsidian`） |
