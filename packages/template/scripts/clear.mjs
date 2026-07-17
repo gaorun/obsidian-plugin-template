@@ -10,7 +10,9 @@ const distPath = resolve(process.cwd(), 'dist');
 // Get vault path from Obsidian CLI
 let vaultPath;
 try {
-	vaultPath = execSync('obsidian vault', { encoding: 'utf8' }).trim();
+	const raw = execSync('obsidian vault', { encoding: 'utf8' });
+	const match = raw.match(/^path\t(.+)$/m);
+	vaultPath = match ? match[1].trim() : '';
 } catch {
 	vaultPath = '';
 }

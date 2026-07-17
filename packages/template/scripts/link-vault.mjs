@@ -16,12 +16,15 @@ const pluginId = manifest.id;
 // Get vault path from Obsidian CLI
 let vaultPath;
 try {
-	vaultPath = execSync('obsidian vault', { encoding: 'utf8' }).trim();
+	const raw = execSync('obsidian vault', { encoding: 'utf8' });
+	// Parse output format: name\t<name>\npath\t<path>
+	const match = raw.match(/^path\t(.+)$/m);
+	vaultPath = match ? match[1].trim() : '';
 	if (!vaultPath) throw new Error('empty vault path');
 } catch {
 	console.log(`[link-vault] Could not detect Obsidian vault path.
-  Make sure the Obsidian CLI is installed and you are in a vault directory.
-  You can set the vault path manually with: export OBSIDIAN_VAULT_PATH=/path/to/your/vault`);
+  Make sure the Obsidian CLI is installed and the current directory is inside a vault.
+  You can also set the vault path manually via: export OBSIDIAN_VAULT_PATH=/path/to/your/vault`);
 	process.exit(0);
 }
 
