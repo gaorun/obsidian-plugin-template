@@ -18,16 +18,30 @@ The CLI creates a fully functional Obsidian plugin project with:
 
 ## Prerequisites
 
-| Requirement | Version | Check command |
-|---|---|---|
-| Node.js | >= 22.13 | `node --version` |
-| pnpm | >= 9 | `pnpm --version` |
-| Git | any | `git --version` |
-| Obsidian CLI | latest | `npm install -g obsidian` |
+| Requirement  | Version  | Check command             |
+| ------------ | -------- | ------------------------- |
+| Node.js      | >= 22.13 | `node --version`          |
+| pnpm         | >= 9     | `pnpm --version`          |
+| Git          | any      | `git --version`           |
+| Obsidian CLI | latest   | `npm install -g obsidian` |
 
 ---
 
 ## Step 1: Scaffold a New Plugin
+
+> **Registry setup**: This package is published to GitHub Packages, not the public npm registry.
+> You need to configure npm/pnpm to resolve `@gaorun/*` packages from GitHub Packages:
+>
+> ```bash
+> echo "@gaorun:registry=https://npm.pkg.github.com/" >> ~/.npmrc
+> ```
+>
+> If you don't have a GitHub token with `read:packages` scope, create one at
+> https://github.com/settings/tokens and add it to `~/.npmrc`:
+>
+> ```bash
+> echo "//npm.pkg.github.com/:_authToken=ghp_xxxxxxxxxxxx" >> ~/.npmrc
+> ```
 
 Run the CLI using `npx` (no install needed):
 
@@ -89,12 +103,12 @@ my-todoist-sync/
 
 ### Key Files
 
-| File | Purpose |
-|---|---|
-| `manifest.json` | Plugin metadata: id, name, version, author, description |
-| `src/main.ts` | Main plugin class extending `Plugin`. Register commands, events, settings |
-| `src/settings.ts` | Settings interface, defaults, and settings tab UI |
-| `vite.config.ts` | Build config + `deploy-to-vault` plugin that auto-copies to vault after each dev build |
+| File                 | Purpose                                                                                    |
+| -------------------- | ------------------------------------------------------------------------------------------ |
+| `manifest.json`      | Plugin metadata: id, name, version, author, description                                    |
+| `src/main.ts`        | Main plugin class extending `Plugin`. Register commands, events, settings                  |
+| `src/settings.ts`    | Settings interface, defaults, and settings tab UI                                          |
+| `vite.config.ts`     | Build config + `deploy-to-vault` plugin that auto-copies to vault after each dev build     |
 | `scripts/deploy.mjs` | Copies `dist/` + `manifest.json` + `styles.css` to `{vault}/.obsidian/plugins/{pluginId}/` |
 
 ---
@@ -152,28 +166,32 @@ The default template demonstrates the Obsidian Plugin API:
 
 ```typescript
 export default class MyPlugin extends Plugin {
-    settings!: MyPluginSettings;
+	settings!: MyPluginSettings;
 
-    async onload() {
-        await this.loadSettings();
+	async onload() {
+		await this.loadSettings();
 
-        // Add a ribbon icon
-        this.addRibbonIcon('dice', 'My Plugin', () => {
-            new Notice('Hello!');
-        });
+		// Add a ribbon icon
+		this.addRibbonIcon('dice', 'My Plugin', () => {
+			new Notice('Hello!');
+		});
 
-        // Add a command
-        this.addCommand({
-            id: 'my-plugin-do-something',
-            name: 'Do something',
-            callback: () => { /* ... */ },
-        });
+		// Add a command
+		this.addCommand({
+			id: 'my-plugin-do-something',
+			name: 'Do something',
+			callback: () => {
+				/* ... */
+			},
+		});
 
-        // Add settings tab
-        this.addSettingTab(new MySettingTab(this.app, this));
-    }
+		// Add settings tab
+		this.addSettingTab(new MySettingTab(this.app, this));
+	}
 
-    onunload() { /* cleanup */ }
+	onunload() {
+		/* cleanup */
+	}
 }
 ```
 
@@ -189,13 +207,13 @@ export default class MyPlugin extends Plugin {
 
 ```typescript
 export interface MyPluginSettings {
-    apiKey: string;
-    syncInterval: number;
+	apiKey: string;
+	syncInterval: number;
 }
 
 export const DEFAULT_SETTINGS: MyPluginSettings = {
-    apiKey: '',
-    syncInterval: 5,
+	apiKey: '',
+	syncInterval: 5,
 };
 ```
 
@@ -219,26 +237,26 @@ async saveSettings() {
 
 ```json
 {
-    "id": "my-todoist-sync",
-    "name": "My Todoist Sync",
-    "version": "1.0.0",
-    "minAppVersion": "1.0.0",
-    "description": "Syncs tasks between Obsidian and Todoist",
-    "author": "Jane Doe",
-    "isDesktopOnly": false
+	"id": "my-todoist-sync",
+	"name": "My Todoist Sync",
+	"version": "1.0.0",
+	"minAppVersion": "1.0.0",
+	"description": "Syncs tasks between Obsidian and Todoist",
+	"author": "Jane Doe",
+	"isDesktopOnly": false
 }
 ```
 
-| Field | Description |
-|---|---|
-| `id` | Unique plugin ID (kebab-case). Used as vault directory name |
-| `name` | Display name in Obsidian settings |
-| `version` | [SemVer](https://semver.org/) version for releases |
-| `minAppVersion` | Minimum Obsidian version required |
-| `author` | Your name |
-| `authorUrl` | Optional: link to your website/GitHub |
-| `fundingUrl` | Optional: link for community funding |
-| `isDesktopOnly` | `false` if mobile-compatible |
+| Field           | Description                                                 |
+| --------------- | ----------------------------------------------------------- |
+| `id`            | Unique plugin ID (kebab-case). Used as vault directory name |
+| `name`          | Display name in Obsidian settings                           |
+| `version`       | [SemVer](https://semver.org/) version for releases          |
+| `minAppVersion` | Minimum Obsidian version required                           |
+| `author`        | Your name                                                   |
+| `authorUrl`     | Optional: link to your website/GitHub                       |
+| `fundingUrl`    | Optional: link for community funding                        |
+| `isDesktopOnly` | `false` if mobile-compatible                                |
 
 ---
 
@@ -255,6 +273,7 @@ After running `pnpm run dev`:
 The plugin's `manifest.json`, `main.js`, and `styles.css` are already deployed to `{vault}/.obsidian/plugins/{pluginId}/`.
 
 To reload after code changes:
+
 - **Mac**: `Cmd + R`
 - **Windows/Linux**: `Ctrl + R`
 
