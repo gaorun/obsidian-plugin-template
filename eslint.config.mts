@@ -1,17 +1,17 @@
 import obsidianmd from 'eslint-plugin-obsidianmd';
+import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
-import { globalIgnores, defineConfig } from 'eslint/config';
 
 export default defineConfig(
 	globalIgnores([
 		'node_modules',
 		'dist',
-		'esbuild.config.mjs',
+		'vite.config.ts',
 		'version-bump.mjs',
 		'versions.json',
 		'main.js',
 		'package.json',
-		'package-lock.json',
+		'pnpm-lock.yaml',
 		'tsconfig.json',
 	]),
 	{
