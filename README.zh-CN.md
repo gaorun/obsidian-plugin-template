@@ -2,6 +2,8 @@
 
 消灭重复劳动，把创意变成 Obsidian 插件。
 
+> **English version** → [README.md](./README.md)
+
 有了一个 Obsidian 插件的好点子，却不想花几个小时搭构建工具链、配 TypeScript、搞 vault 集成？这套工具提供了一个**零配置 CLI**，一分钟生成生产就绪的插件项目——TypeScript + Vite 8 + ESLint + 一键热更新开发，你只管写代码。
 
 ## 包说明
@@ -124,8 +126,8 @@ my-plugin/
 
 ## 环境要求
 
-| 工具         | 版本                                |
-| ------------ | ----------------------------------- |
-| Node.js      | >= 22.13                            |
-| pnpm         | >= 11.x                             |
-| Obsidian CLI | latest（`npm install -g obsidian`） |
+| 工具         | 版本                   |
+| ------------ | ---------------------- |
+| Node.js      | >= 22.13               |
+| pnpm         | >= 11.x                |
+| Obsidian CLI | latest（桌面应用自带） |

@@ -4,6 +4,8 @@ Scaffold, develop, and publish Obsidian plugins — in minutes, not hours.
 
 Have a great idea for an Obsidian plugin but don't want to spend hours setting up the build toolchain, configuring TypeScript, and wiring up the vault integration? This project gives you a **zero-config CLI** that generates a production-ready plugin project with TypeScript, Vite 8, ESLint, and one-command hot-reload development — so you can focus on writing code, not config files.
 
+> **中文版** → [README.zh-CN.md](./README.zh-CN.md)
+
 ## What's Inside
 
 | Package                                             | Description                                                            |
@@ -124,8 +126,8 @@ An [AI Agent Guide](https://gaorun.github.io/obsidian-plugin-template/AI-GUIDE) 
 
 ## Requirements
 
-| Tool         | Version                            |
-| ------------ | ---------------------------------- |
-| Node.js      | >= 22.13                           |
-| pnpm         | >= 11.x                            |
-| Obsidian CLI | latest (`npm install -g obsidian`) |
+| Tool         | Version                           |
+| ------------ | --------------------------------- |
+| Node.js      | >= 22.13                          |
+| pnpm         | >= 11.x                           |
+| Obsidian CLI | latest (bundled with desktop app) |
